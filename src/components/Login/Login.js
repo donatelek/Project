@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { userValidationLogin } from "../../store/actions";
+import {
+  userValidationLogin,
+  userValidationRegister
+} from "../../store/actions";
 
 class Login extends Component {
   state = {
@@ -20,19 +23,23 @@ class Login extends Component {
   submitLogin = () => {
     const { email, password } = this.state;
     this.props.userValidationLogin(email, password);
-    // axios.post('https://projectxapp1.herokuapp.com/login', { email: this.state.email, password: this.state.password })
-    //     .then(res => {
-    //         console.log(res)
-    //         this.setState({
-    //             servResponse: res.data
-    //         })
-    //     })
+    this.setState({
+      email: "",
+      password: ""
+    });
+  };
+  submitRegister = () => {
+    const { email, password } = this.state;
+    this.props.userValidationRegister(email, password);
+    this.setState({
+      email: "",
+      password: ""
+    });
   };
 
   render() {
     return (
       <>
-        <h1>login</h1>
         <label htmlFor="">Email</label>
         <br />
         <input
@@ -51,7 +58,15 @@ class Login extends Component {
           value={this.state.password}
         />
         <br />
-        <button onClick={this.submitLogin}>Login</button>
+        <div class="ui buttons">
+          <button class="ui button" onClick={this.submitLogin}>
+            Login
+          </button>
+          <div class="or"></div>
+          <button class="ui positive button" onClick={this.submitRegister}>
+            Register
+          </button>
+        </div>
         <br />
         {this.state.servResponse && (
           <div className="error">{this.state.servResponse}</div>
@@ -62,5 +77,6 @@ class Login extends Component {
 }
 
 export default connect(null, {
-  userValidationLogin
+  userValidationLogin,
+  userValidationRegister
 })(Login);
