@@ -1,5 +1,7 @@
 import React from "react";
 import Login from "./Login/Login";
+import UsersProfile from "./UsersProfile/UsersProfile";
+import CreateProject from "./CreateProject/CreateProject";
 // import Register from './Register/Register'
 
 const App = () => {
@@ -7,6 +9,8 @@ const App = () => {
     <div>
       <p>Projekt</p>
       <Login />
+      <UsersProfile />
+      <CreateProject />
       {/* <Register /> */}
     </div>
   );
