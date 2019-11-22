@@ -4,13 +4,17 @@ import {
   userValidationLogin,
   userValidationRegister
 } from "../../store/actions";
+import { Redirect } from "react-router-dom";
 
 class Login extends Component {
-  state = {
-    email: "",
-    password: "",
-    servResponse: ""
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: "",
+      password: "",
+      servResponse: ""
+    };
+  }
 
   onInputChange = e => {
     const name = e.target.name;
@@ -22,7 +26,9 @@ class Login extends Component {
 
   submitLogin = () => {
     const { email, password } = this.state;
+
     this.props.userValidationLogin(email, password);
+
     this.setState({
       email: "",
       password: ""
@@ -36,38 +42,33 @@ class Login extends Component {
       password: ""
     });
   };
-
   render() {
     return (
       <>
-        <label htmlFor="">Email</label>
-        <br />
         <input
           type="email"
           name="email"
+          placeholder="email"
           onChange={this.onInputChange}
           value={this.state.email}
         />
-        <br />
-        <label htmlFor="">Password</label>
-        <br />
         <input
           type="password"
           name="password"
+          placeholder="password"
           onChange={this.onInputChange}
           value={this.state.password}
         />
-        <br />
-        <div class="ui buttons">
-          <button class="ui button" onClick={this.submitLogin}>
+        <div className="ui buttons">
+          <button className="ui button" onClick={this.submitLogin}>
             Login
           </button>
-          <div class="or"></div>
-          <button class="ui positive button" onClick={this.submitRegister}>
+          <div className="or"></div>
+          <button className="ui positive button" onClick={this.submitRegister}>
             Register
           </button>
         </div>
-        <br />
+        {this.props.user.data.length !== 0 ? <Redirect to="/user" /> : null}
         {this.state.servResponse && (
           <div className="error">{this.state.servResponse}</div>
         )}
@@ -76,7 +77,14 @@ class Login extends Component {
   }
 }
 
-export default connect(null, {
+const mapStateToProps = state => {
+  console.log(state);
+  return {
+    user: state.userReducer
+  };
+};
+
+export default connect(mapStateToProps, {
   userValidationLogin,
   userValidationRegister
 })(Login);
