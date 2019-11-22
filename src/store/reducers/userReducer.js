@@ -1,7 +1,8 @@
-import { FETCH_USER } from "../actions/actiontypes";
+import { FETCH_USER, USER_LOGIN, USER_REGISTER } from "../actions/actiontypes";
 
 const initialState = {
-  data: []
+  data: [],
+  registered: []
 };
 
 export const userReducer = (state = initialState, action) => {
@@ -10,6 +11,15 @@ export const userReducer = (state = initialState, action) => {
       return {
         ...state,
         data: action.data
+      };
+    case USER_LOGIN:
+      return {
+        ...state,
+        data: action.data
+      };
+    case USER_REGISTER:
+      return {
+        registered: action.data
       };
     default:
       return state;
