@@ -23,14 +23,21 @@ export function fetchRegister(data) {
 }
 
 export const userValidationLogin = (email, password) => dispatch => {
-  console.log(email);
   heroku.post("/login", { email, password }).then(data => {
-    console.log(data);
+    const user = { email: email, status: data.data };
+    if (data.data === "Success") {
+      dispatch(fetchLogin(user));
+    }
   });
 };
 
 export const userValidationRegister = (email, password) => dispatch => {
   heroku.post("/register", { email, password }).then(data => {
-    console.log(data);
+    const registered = { email: email };
+    if (data.data === "Registered") {
+      dispatch(fetchRegister(registered));
+    } else {
+      console.log("You cant register!");
+    }
   });
 };
