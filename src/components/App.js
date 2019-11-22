@@ -1,16 +1,21 @@
 import React from "react";
-import Login from "./Login/Login";
-import UsersProfile from "./UsersProfile/UsersProfile";
-import CreateProject from "./CreateProject/CreateProject";
+import Header from "./Header";
+import ShowUser from "./ShowUser";
+// import Login from "./Login/Login";
+import { BrowserRouter, Route } from "react-router-dom";
+// import UsersProfile from "./UsersProfile/UsersProfile";
+// import CreateProject from "./CreateProject/CreateProject";
 // import Register from './Register/Register'
 
 const App = () => {
   return (
     <div>
-      <p>Projekt</p>
-      <Login />
-      <UsersProfile />
-      <CreateProject />
+      <BrowserRouter>
+        <div>
+          <Route path="/" exact component={Header} />
+          <Route path="/user" exact component={ShowUser} />
+        </div>
+      </BrowserRouter>
       {/* <Register /> */}
     </div>
   );
