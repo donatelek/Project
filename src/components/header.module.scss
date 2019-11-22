@@ -1,0 +1,21 @@
+.Header {
+  background: url("../images/team.jpg") no-repeat;
+  background-position: 50% 20%;
+  height: calc(100vh);
+  background-size: cover;
+  position: relative;
+}
+
+.nav-style {
+  display: flex;
+}
+
+.shrink {
+  position: fixed;
+  background-color: rgba(247, 251, 254, 0.94);
+  width: 100%;
+  height: 10vh;
+  transition: ease-out 2s;
+  z-index: 3;
+  border-bottom: 1px solid black;
+}
