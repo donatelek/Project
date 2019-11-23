@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import App, { history } from "./components/App";
 import store from "./store/index.js";
+import { loginUserSuccess, logoutUser } from "./store/actions/auth";
 import { firebase } from "./firebase/firebase";
 
 const jsx = (
@@ -21,12 +22,14 @@ const renderApp = () => {
 
 firebase.auth().onAuthStateChanged(user => {
   if (user) {
-    console.log("log in");
+    store.dispatch(loginUserSuccess(user.uid));
+    console.log(user.uid);
     renderApp();
     if (history.location.pathname === "/") {
       history.push("/user");
     }
   } else {
+    store.dispatch(logoutUser());
     renderApp();
     history.push("/");
   }
