@@ -1,5 +1,9 @@
 import { firebase, googleAuthProvider } from "../../firebase/firebase";
-import { CREATE_USER_SUCCESS, CREATE_USER_FAIL } from "./actiontypes";
+import {
+  LOGIN_USER_SUCCESS,
+  LOGIN_USER_FAIL,
+  LOGOUT_USER
+} from "./actiontypes";
 
 export const startLogin = () => {
   return () => {
@@ -13,15 +17,20 @@ export const startLogout = () => {
   };
 };
 
-export const createUserSuccess = resp => {
+export const loginUserSuccess = uid => {
   return {
-    type: CREATE_USER_SUCCESS,
-    user: resp
+    type: LOGIN_USER_SUCCESS,
+    uid
   };
 };
-export const createUserFail = error => {
+
+export const logoutUser = () => ({
+  type: LOGOUT_USER
+});
+
+export const loginUserFail = error => {
   return {
-    type: CREATE_USER_FAIL,
+    type: LOGIN_USER_FAIL,
     error
   };
 };
@@ -31,9 +40,9 @@ export const customRegister = (email, password) => dispatch => {
     .auth()
     .createUserWithEmailAndPassword(email, password)
     .then(resp => {
-      return dispatch(createUserSuccess(resp));
+      return dispatch(loginUserSuccess(resp));
     })
-    .catch(error => dispatch(createUserFail(error)));
+    .catch(error => dispatch(loginUserFail(error)));
 };
 
 export const customLogin = (email, password) => dispatch => {

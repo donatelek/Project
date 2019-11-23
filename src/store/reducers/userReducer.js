@@ -2,8 +2,8 @@ import {
   FETCH_USER,
   USER_LOGIN,
   USER_REGISTER,
-  CREATE_USER_SUCCESS,
-  CREATE_USER_FAIL
+  LOGIN_USER_SUCCESS,
+  LOGIN_USER_FAIL
 } from "../actions/actiontypes";
 
 const initialState = {
@@ -27,12 +27,12 @@ export const userReducer = (state = initialState, action) => {
       return {
         registered: action.data
       };
-    case CREATE_USER_SUCCESS:
+    case LOGIN_USER_SUCCESS:
       const {
         user: { uid: userId }
       } = action;
       return { ...state, loggedIn: true, userId };
-    case CREATE_USER_FAIL:
+    case LOGIN_USER_FAIL:
       const { error } = action;
       return { ...state, loggedIn: false, error };
     default:
