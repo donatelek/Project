@@ -1,21 +1,20 @@
 import React from "react";
 import Header from "./Header";
 import ShowUser from "./ShowUser";
-// import Login from "./Login/Login";
-import { BrowserRouter, Route } from "react-router-dom";
-// import CreateProject from "./CreateProject/CreateProject";
-// import Register from './Register/Register'
+import { createBrowserHistory as createHistory } from "history";
+import { Router, Route } from "react-router-dom";
+
+export const history = createHistory();
 
 const App = () => {
   return (
     <div>
-      <BrowserRouter>
+      <Router history={history}>
         <div>
           <Route path="/" exact component={Header} />
           <Route path="/user" exact component={ShowUser} />
         </div>
-      </BrowserRouter>
-      {/* <Register /> */}
+      </Router>
     </div>
   );
 };
