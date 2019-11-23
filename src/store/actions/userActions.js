@@ -1,5 +1,6 @@
 import heroku from "../../api/heroku";
 import { FETCH_USER, USER_LOGIN, USER_REGISTER } from "./actiontypes";
+import database from "../../firebase/firebase";
 
 export function fetchUsers(data) {
   return {
@@ -25,6 +26,8 @@ export function fetchRegister(data) {
 export const userValidationLogin = (email, password) => dispatch => {
   heroku.post("/login", { email, password }).then(data => {
     const user = { email: email, status: data.data };
+    database.ref("user").push(user);
+    console.log(data);
     if (data.data === "Success") {
       dispatch(fetchLogin(user));
     }
