@@ -1,10 +1,16 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import {
-  userValidationLogin,
-  userValidationRegister
-} from "../../store/actions";
-import { Redirect } from "react-router-dom";
+  startLogin,
+  customRegister,
+  startLogout,
+  customLogin
+} from "../../store/actions/auth";
+// import {
+//   userValidationLogin,
+//   userValidationRegister
+// } from "../../store/actions";
+// import { Redirect } from "react-router-dom";
 
 class Login extends Component {
   constructor(props) {
@@ -26,9 +32,7 @@ class Login extends Component {
 
   submitLogin = () => {
     const { email, password } = this.state;
-
-    this.props.userValidationLogin(email, password);
-
+    this.props.customLogin(email, password);
     this.setState({
       email: "",
       password: ""
@@ -36,7 +40,7 @@ class Login extends Component {
   };
   submitRegister = () => {
     const { email, password } = this.state;
-    this.props.userValidationRegister(email, password);
+    this.props.customRegister(email, password);
     this.setState({
       email: "",
       password: ""
@@ -67,8 +71,14 @@ class Login extends Component {
           <button className="ui positive button" onClick={this.submitRegister}>
             Register
           </button>
+          <button onClick={this.props.startLogout} className="ui button">
+            Logout
+          </button>
+          <button onClick={this.props.startLogin} className="ui button">
+            Log With Google
+          </button>
         </div>
-        {this.props.user.data.length !== 0 ? <Redirect to="/user" /> : null}
+        {/* {this.props.user.data.length !== 0 ? <Redirect to="/user" /> : null} */}
         {this.state.servResponse && (
           <div className="error">{this.state.servResponse}</div>
         )}
@@ -84,7 +94,12 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, {
-  userValidationLogin,
-  userValidationRegister
-})(Login);
+const mapDispatchToProps = dispatch => ({
+  startLogin: () => dispatch(startLogin()),
+  customRegister: (email, password) =>
+    dispatch(customRegister(email, password)),
+  customLogin: (email, password) => dispatch(customLogin(email, password)),
+  startLogout: () => dispatch(startLogout())
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
