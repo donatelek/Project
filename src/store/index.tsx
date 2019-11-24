@@ -1,7 +1,8 @@
 import { createStore, applyMiddleware, compose, combineReducers } from "redux";
-import reduxThunk from "redux-thunk";
+import reduxThunk, { ThunkMiddleware } from "redux-thunk";
 import userReducer from "./reducers/userReducer";
 import authReducer from "./reducers/auth";
+import { AppActions } from "./actions/actiontypes";
 
 const rootReducer = combineReducers({
   userReducer,
@@ -11,7 +12,9 @@ const rootReducer = combineReducers({
 const composeEnhancers =
   window["__REDUX_DEVTOOLS_EXTENSION_COMPOSE__"] || compose;
 
+export type AppState = ReturnType<typeof rootReducer>
+
 export default createStore(
   rootReducer,
-  composeEnhancers(applyMiddleware(reduxThunk))
+  composeEnhancers(applyMiddleware(reduxThunk as ThunkMiddleware<AppState, AppActions>))
 );

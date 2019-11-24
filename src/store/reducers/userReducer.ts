@@ -1,3 +1,4 @@
+import { AuthActionTypes } from './../actions/actiontypes';
 import {
   FETCH_USER,
   USER_LOGIN,
@@ -11,7 +12,7 @@ const initialState = {
   registered: []
 };
 
-export const userReducer = (state = initialState, action) => {
+export const userReducer = (state = initialState, action: AuthActionTypes) => {
   switch (action.type) {
     case FETCH_USER:
       return {

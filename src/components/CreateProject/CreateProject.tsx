@@ -16,11 +16,11 @@ class CreateProject extends Component {
                 <br />
                 <label htmlFor="">Description</label>
                 <br />
-                <textarea name="" id="" cols="30" rows="10"></textarea>
+                <textarea name="" id="" cols={30} rows={10}></textarea>
                 <br />
                 <label htmlFor="">Main Goals</label>
                 <br />
-                <textarea name="" id="" cols="30" rows="10"></textarea>
+                <textarea name="" id="" cols={30} rows={10}></textarea>
                 <br />
                 <label htmlFor="">Contact</label>
                 <br />
