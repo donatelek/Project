@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import App, { history } from "./components/App";
-import store from "./store/index.js";
+import store from "./store/index.d";
 import { loginUserSuccess, logoutUser } from "./store/actions/auth";
 import { firebase } from "./firebase/firebase";
 

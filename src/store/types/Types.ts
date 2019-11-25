@@ -1,7 +1,13 @@
+export interface UserData {
+  email?: string;
+  password?: string;
+}
+
 export interface Auth {
-    uid: firebase.auth.UserCredential | string;
-    loggedIn: boolean;
-    data: [];
-    registered: [];
-    error: any;
+  user?: {};
+  uid?: string;
+  loggedIn?: boolean;
+  data?: UserData[];
+  // registered?: {};
+  error?: string;
 }
