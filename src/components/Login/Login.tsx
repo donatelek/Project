@@ -6,14 +6,25 @@ import {
   startLogout,
   customLogin
 } from "../../store/actions/auth";
-// import {
-//   userValidationLogin,
-//   userValidationRegister
-// } from "../../store/actions";
-// import { Redirect } from "react-router-dom";
+import { AppState } from "../../store/index.d";
+import { Dispatch } from "redux";
+import { AuthActionTypes } from "../../store/actions/actiontypes";
 
-class Login extends Component {
-  constructor(props) {
+interface LoginState {
+  email: string;
+  password: string;
+  servResponse: string;
+}
+
+interface LoginProps {
+  customRegister: (email: string, password: string) => void;
+  startLogin: () => void;
+  startLogout: () => void;
+  customLogin: (email: string, password: string) => void;
+}
+
+class Login extends Component<LoginProps, LoginState> {
+  constructor(props: LoginProps) {
     super(props);
     this.state = {
       email: "",
@@ -22,7 +33,7 @@ class Login extends Component {
     };
   }
 
-  onInputChange = e => {
+  onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const name = e.target.name;
     const value = e.target.value;
     this.setState({
@@ -87,19 +98,20 @@ class Login extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  console.log(state);
-  return {
-    user: state.userReducer
-  };
-};
+// const mapStateToProps = (state: AppState) => {
+//   console.log(state);
+//   return {
+//     user: state.userReducer
+//   };
+// };
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch: Dispatch<AuthActionTypes>) => ({
   startLogin: () => dispatch(startLogin()),
-  customRegister: (email, password) =>
+  customRegister: (email: string, password: string) =>
     dispatch(customRegister(email, password)),
-  customLogin: (email, password) => dispatch(customLogin(email, password)),
+  customLogin: (email: string, password: string) =>
+    dispatch(customLogin(email, password)),
   startLogout: () => dispatch(startLogout())
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default connect<AppState>(null, mapDispatchToProps)(Login);
