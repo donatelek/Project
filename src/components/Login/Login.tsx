@@ -1,12 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import {
-  customRegister,
-  customLogin
-} from "../../store/actions/auth";
+import { customRegister, customLogin } from "../../store/actions/auth";
 import { AppState } from "../../store/index.d";
-import { Dispatch } from "redux";
-import { AuthActionTypes } from "../../store/actions/actiontypes";
 import loginStyles from "./login.module.scss";
 import { auth, googleAuthProvider } from "../../firebase/firebase";
 
@@ -18,8 +13,8 @@ interface LoginState {
 
 interface LoginProps {
   customRegister: (email: string, password: string) => void;
-  startLogin: () => void;
-  startLogout: () => void;
+  startLogin?: () => void;
+  startLogout?: () => void;
   customLogin: (email: string, password: string) => void;
   onInputChange: () => void;
 }
@@ -59,11 +54,11 @@ class Login extends Component<LoginProps, LoginState> {
     });
   };
   startLogout = () => {
-    auth.signOut()
-  }
+    auth.signOut();
+  };
   startLogin = () => {
-    auth.signInWithPopup(googleAuthProvider)
-  }
+    auth.signInWithPopup(googleAuthProvider);
+  };
   render() {
     return (
       <>
@@ -98,17 +93,10 @@ class Login extends Component<LoginProps, LoginState> {
                 <button onClick={this.startLogout} className="ui button">
                   Logout
                 </button>
-                {/* <button onClick={this.props.startLogout} className="ui button">
-                  Logout
-                </button> */}
                 <button onClick={this.startLogin} className="ui button">
                   Log With Google
                 </button>
               </div>
-              {/* {this.props.user.data.length !== 0 ? <Redirect to="/user" /> : null} */}
-              {/* {this.state.servResponse && (
-          <div className="error">{this.state.servResponse}</div> */}
-              )}
             </nav>
           </div>
         </header>
@@ -117,22 +105,4 @@ class Login extends Component<LoginProps, LoginState> {
   }
 }
 
-// const mapStateToProps = (state: AppState) => {
-//   console.log(state);
-//   return {
-//     user: state.userReducer
-//   };
-// };
-
-const mapDispatchToProps = (dispatch: Dispatch<AuthActionTypes>) => ({
-  // startLogin: () => dispatch(startLogin()),
-  // customRegister: (email: string, password: string) =>
-  //   dispatch(customRegister(email, password)),
-  // customLogin: (email: string, password: string) =>
-  //   dispatch(customLogin(email, password)),
-  customRegister: typeof customRegister,
-  customLogin: typeof customLogin,
-  // startLogout: () => dispatch(startLogout())
-});
-
-export default connect<AppState>(null, mapDispatchToProps)(Login);
+export default connect<AppState>(null, { customRegister, customLogin })(Login);
