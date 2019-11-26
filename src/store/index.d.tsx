@@ -9,8 +9,16 @@ const rootReducer = combineReducers({
 });
 export type AppState = ReturnType<typeof rootReducer>;
 
-const composeEnhancers =
-  (window["__REDUX_DEVTOOLS_EXTENSION_COMPOSE__"] as typeof compose) || compose;
+declare global {
+  interface Window {
+    __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
+  }
+}
+
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+// const composeEnhancers =
+//   (window['__REDUX_DEVTOOLS_EXTENSION_COMPOSE__'] as typeof compose) || compose;
 
 export default createStore(
   rootReducer,
