@@ -9,19 +9,27 @@ import { Auth, UserData } from "../types/Types";
 import { AppActions } from "./actiontypes";
 import { Dispatch } from "redux";
 
-export const startLogin = (): AppActions => {
-  return () => {
-    return firebase.auth().signInWithPopup(googleAuthProvider);
-  };
-};
+// export const startLogin = (): AppActions => {
+//   return () => {
+//     return firebase.auth().signInWithPopup(googleAuthProvider);
+//   };
+// };
 
-export const startLogout = (): AppActions => {
-  return () => {
-    return firebase.auth().signOut();
-  };
-};
+// export const startLogout = (): AppActions => {
+//   return () => {
+//     return firebase.auth().signOut();
+//   };
+// };
 
-export const loginUserSuccess = (uid: UserData): AppActions => {
+// export const loginUserSuccess = (uid: UserData): AppActions => {
+//   return {
+//     type: LOGIN_USER_SUCCESS,
+//     uid
+//   };
+// };
+
+//Tu chyba jest problem w tym ze ta funkcja jest uzywana 2 razy tutaj w customRegister i w index onAuthstatechanged i tu ten element uid to jest firebase.auth.UserCredential a w indexie jako string narazie dalem any
+export const loginUserSuccess = (uid: any): AppActions => {
   return {
     type: LOGIN_USER_SUCCESS,
     uid

@@ -1,25 +1,31 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { startLogout } from "../../store/actions/auth";
+// import { startLogout } from "../../store/actions/auth";
 import { AppState } from "../../store/index.d";
 import { Dispatch } from "redux";
 import { AuthActionTypes } from "../../store/actions/actiontypes";
+import { auth } from "../../firebase/firebase";
+// interface UsersProfileProps {
+// startLogout: () => void;
+// }
 
-interface UsersProfileProps {
-  startLogout: () => void;
-}
-
-class UsersProfile extends Component<UsersProfileProps> {
-  constructor(props: UsersProfileProps) {
+class UsersProfile extends Component {
+  constructor(props: any) {
     super(props);
     this.state = {};
+  }
+  startLogout = () => {
+    auth.signOut()
   }
   render() {
     return (
       <>
-        <button onClick={this.props.startLogout} className="ui button">
+        <button onClick={this.startLogout} className="ui button">
           Logout
         </button>
+        {/* <button onClick={this.props.startLogout} className="ui button">
+          Logout
+        </button> */}
         <label htmlFor="">Your avatar (picture on click)</label>
         <br />
         <input type="text" placeholder="Update avatar" />
@@ -73,8 +79,8 @@ class UsersProfile extends Component<UsersProfileProps> {
     );
   }
 }
-const mapDispatchToProps = (dispatch: Dispatch<AuthActionTypes>) => ({
-  startLogout: () => dispatch(startLogout())
-});
+// const mapDispatchToProps = (dispatch: Dispatch<AuthActionTypes>) => ({
+// startLogout: () => dispatch(startLogout())
+// });
 
-export default connect<AppState>(null, mapDispatchToProps)(UsersProfile);
+export default UsersProfile;

@@ -1,15 +1,14 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import {
-  startLogin,
   customRegister,
-  startLogout,
   customLogin
 } from "../../store/actions/auth";
 import { AppState } from "../../store/index.d";
 import { Dispatch } from "redux";
 import { AuthActionTypes } from "../../store/actions/actiontypes";
 import loginStyles from "./login.module.scss";
+import { auth, googleAuthProvider } from "../../firebase/firebase";
 
 interface LoginState {
   email: string;
@@ -59,6 +58,12 @@ class Login extends Component<LoginProps, LoginState> {
       password: ""
     });
   };
+  startLogout = () => {
+    auth.signOut()
+  }
+  startLogin = () => {
+    auth.signInWithPopup(googleAuthProvider)
+  }
   render() {
     return (
       <>
@@ -90,10 +95,13 @@ class Login extends Component<LoginProps, LoginState> {
                 >
                   Register
                 </button>
-                <button onClick={this.props.startLogout} className="ui button">
+                <button onClick={this.startLogout} className="ui button">
                   Logout
                 </button>
-                <button onClick={this.props.startLogin} className="ui button">
+                {/* <button onClick={this.props.startLogout} className="ui button">
+                  Logout
+                </button> */}
+                <button onClick={this.startLogin} className="ui button">
                   Log With Google
                 </button>
               </div>
@@ -117,14 +125,14 @@ class Login extends Component<LoginProps, LoginState> {
 // };
 
 const mapDispatchToProps = (dispatch: Dispatch<AuthActionTypes>) => ({
-  startLogin: () => dispatch(startLogin()),
+  // startLogin: () => dispatch(startLogin()),
   // customRegister: (email: string, password: string) =>
   //   dispatch(customRegister(email, password)),
   // customLogin: (email: string, password: string) =>
   //   dispatch(customLogin(email, password)),
   customRegister: typeof customRegister,
   customLogin: typeof customLogin,
-  startLogout: () => dispatch(startLogout())
+  // startLogout: () => dispatch(startLogout())
 });
 
 export default connect<AppState>(null, mapDispatchToProps)(Login);
