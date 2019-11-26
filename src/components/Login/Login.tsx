@@ -9,11 +9,12 @@ import {
 import { AppState } from "../../store/index.d";
 import { Dispatch } from "redux";
 import { AuthActionTypes } from "../../store/actions/actiontypes";
+import loginStyles from "./login.module.scss";
 
 interface LoginState {
   email: string;
   password: string;
-  servResponse: string;
+  [key: string]: string;
 }
 
 interface LoginProps {
@@ -21,6 +22,7 @@ interface LoginProps {
   startLogin: () => void;
   startLogout: () => void;
   customLogin: (email: string, password: string) => void;
+  onInputChange: () => void;
 }
 
 class Login extends Component<LoginProps, LoginState> {
@@ -28,9 +30,9 @@ class Login extends Component<LoginProps, LoginState> {
     super(props);
     this.state = {
       email: "",
-      password: "",
-      servResponse: ""
+      password: ""
     };
+    this.submitLogin = this.submitLogin.bind(this);
   }
 
   onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -41,14 +43,14 @@ class Login extends Component<LoginProps, LoginState> {
     });
   };
 
-  submitLogin = () => {
+  submitLogin() {
     const { email, password } = this.state;
     this.props.customLogin(email, password);
     this.setState({
       email: "",
       password: ""
     });
-  };
+  }
   submitRegister = () => {
     const { email, password } = this.state;
     this.props.customRegister(email, password);
@@ -60,39 +62,48 @@ class Login extends Component<LoginProps, LoginState> {
   render() {
     return (
       <>
-        <input
-          type="email"
-          name="email"
-          placeholder="email"
-          onChange={this.onInputChange}
-          value={this.state.email}
-        />
-        <input
-          type="password"
-          name="password"
-          placeholder="password"
-          onChange={this.onInputChange}
-          value={this.state.password}
-        />
-        <div className="ui buttons">
-          <button className="ui button" onClick={this.submitLogin}>
-            Login
-          </button>
-          <div className="or"></div>
-          <button className="ui positive button" onClick={this.submitRegister}>
-            Register
-          </button>
-          <button onClick={this.props.startLogout} className="ui button">
-            Logout
-          </button>
-          <button onClick={this.props.startLogin} className="ui button">
-            Log With Google
-          </button>
-        </div>
-        {/* {this.props.user.data.length !== 0 ? <Redirect to="/user" /> : null} */}
-        {this.state.servResponse && (
-          <div className="error">{this.state.servResponse}</div>
-        )}
+        <header className={loginStyles.Header}>
+          <div>
+            <nav className={`${loginStyles.navStyle} ${loginStyles.shrink}`}>
+              <input
+                type="email"
+                name="email"
+                placeholder="email"
+                onChange={this.onInputChange}
+                value={this.state.email}
+              />
+              <input
+                type="password"
+                name="password"
+                placeholder="password"
+                onChange={this.onInputChange}
+                value={this.state.password}
+              />
+              <div className="ui buttons">
+                <button className="ui button" onClick={this.submitLogin}>
+                  Login
+                </button>
+                <div className="or"></div>
+                <button
+                  className="ui positive button"
+                  onClick={this.submitRegister}
+                >
+                  Register
+                </button>
+                <button onClick={this.props.startLogout} className="ui button">
+                  Logout
+                </button>
+                <button onClick={this.props.startLogin} className="ui button">
+                  Log With Google
+                </button>
+              </div>
+              {/* {this.props.user.data.length !== 0 ? <Redirect to="/user" /> : null} */}
+              {/* {this.state.servResponse && (
+          <div className="error">{this.state.servResponse}</div> */}
+              )}
+            </nav>
+          </div>
+        </header>
       </>
     );
   }
@@ -107,10 +118,12 @@ class Login extends Component<LoginProps, LoginState> {
 
 const mapDispatchToProps = (dispatch: Dispatch<AuthActionTypes>) => ({
   startLogin: () => dispatch(startLogin()),
-  customRegister: (email: string, password: string) =>
-    dispatch(customRegister(email, password)),
-  customLogin: (email: string, password: string) =>
-    dispatch(customLogin(email, password)),
+  // customRegister: (email: string, password: string) =>
+  //   dispatch(customRegister(email, password)),
+  // customLogin: (email: string, password: string) =>
+  //   dispatch(customLogin(email, password)),
+  customRegister: typeof customRegister,
+  customLogin: typeof customLogin,
   startLogout: () => dispatch(startLogout())
 });
 

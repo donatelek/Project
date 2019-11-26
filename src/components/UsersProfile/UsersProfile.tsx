@@ -1,8 +1,19 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { startLogout } from "../../store/actions/auth";
-class UsersProfile extends Component {
-  state = {};
+import { AppState } from "../../store/index.d";
+import { Dispatch } from "redux";
+import { AuthActionTypes } from "../../store/actions/actiontypes";
+
+interface UsersProfileProps {
+  startLogout: () => void;
+}
+
+class UsersProfile extends Component<UsersProfileProps> {
+  constructor(props: UsersProfileProps) {
+    super(props);
+    this.state = {};
+  }
   render() {
     return (
       <>
@@ -62,8 +73,8 @@ class UsersProfile extends Component {
     );
   }
 }
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch: Dispatch<AuthActionTypes>) => ({
   startLogout: () => dispatch(startLogout())
 });
 
-export default connect(null, mapDispatchToProps)(UsersProfile);
+export default connect<AppState>(null, mapDispatchToProps)(UsersProfile);

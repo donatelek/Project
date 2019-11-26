@@ -10,9 +10,8 @@ import { AppActions } from "./actiontypes";
 import { Dispatch } from "redux";
 
 export const startLogin = (): AppActions => {
-  let defaultAuth = firebase.auth();
   return () => {
-    return defaultAuth.signInWithPopup(googleAuthProvider);
+    return firebase.auth().signInWithPopup(googleAuthProvider);
   };
 };
 
@@ -22,7 +21,7 @@ export const startLogout = (): AppActions => {
   };
 };
 
-export const loginUserSuccess = (uid: Auth[]): AppActions => {
+export const loginUserSuccess = (uid: UserData): AppActions => {
   return {
     type: LOGIN_USER_SUCCESS,
     uid

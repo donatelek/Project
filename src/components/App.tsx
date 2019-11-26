@@ -1,6 +1,6 @@
 import React from "react";
-import Header from "./Header";
-import ShowUser from "./ShowUser";
+import Login from "./Login/Login";
+import UserProfile from "./UsersProfile/UsersProfile";
 import { createBrowserHistory as createHistory } from "history";
 import { Router, Route } from "react-router-dom";
 
@@ -11,8 +11,8 @@ const App = () => {
     <div>
       <Router history={history}>
         <div>
-          <Route path="/" exact component={Header} />
-          <Route path="/user" exact component={ShowUser} />
+          <Route path="/" exact component={Login} />
+          <Route path="/user" exact component={UserProfile} />
         </div>
       </Router>
     </div>
