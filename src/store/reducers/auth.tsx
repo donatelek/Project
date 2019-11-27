@@ -4,13 +4,15 @@ import {
   LOGOUT_USER,
   AuthActionTypes
 } from "../actions/actiontypes";
-import { Auth } from "../types/Types";
+// import { Auth } from "../types/Types";
 
-interface AuthReducer {
-  uid: Auth;
-}
+// const initialState: Auth = {
+//   uid: "",
+//   user: {},
+//   loggedIn: true
+// };
 
-export default (state = {}, action: AuthActionTypes) => {
+export const authReducer = (state = {}, action: AuthActionTypes) => {
   switch (action.type) {
     case LOGIN_USER_SUCCESS:
       return {
@@ -26,3 +28,5 @@ export default (state = {}, action: AuthActionTypes) => {
       return state;
   }
 };
+
+export default authReducer;

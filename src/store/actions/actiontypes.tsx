@@ -1,4 +1,4 @@
-import { Auth, UserData } from "../types/Types";
+import { Auth } from "../types/Types";
 
 export const FETCH_USER = "FETCH_USER";
 export const USER_LOGIN = "USER_LOGIN";
@@ -21,7 +21,7 @@ export const LOGOUT_USER = "LOGOUT_USER";
 // }
 export interface SetLoginUserSuccessAction {
   type: typeof LOGIN_USER_SUCCESS;
-  uid: UserData;
+  uid: Auth;
 }
 export interface SetLoginUserFailAction {
   type: typeof LOGIN_USER_FAIL;
