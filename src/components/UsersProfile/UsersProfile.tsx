@@ -1,14 +1,30 @@
 import React, { Component } from "react";
 import { auth } from "../../firebase/firebase";
 
-class UsersProfile extends Component {
-  constructor(props: UsersProfile) {
-    super(props);
-    this.state = {};
-  }
+interface UsersProfileState {
+  facebook: string;
+  discord: string;
+  github: string;
+  slack: string;
+}
+
+class UsersProfile extends Component<UsersProfileState> {
+  state = {
+    facebook: '',
+    discord: '',
+    github: '',
+    slack: '',
+  };
   startLogout = () => {
     auth.signOut();
   };
+  handleInputChange = (e: any): void => {
+    const name = e.target.name
+    const value = e.target.value
+    this.setState({
+      [name]: value
+    });
+  }
   render() {
     return (
       <>
@@ -59,7 +75,23 @@ class UsersProfile extends Component {
         <br />
         <input type="text" />
         <br />
-        <label htmlFor="">Contact to you (input)</label>
+        <h1>Contact</h1>
+        <br />
+        <label htmlFor="">Facebook URL</label>
+        <br />
+        <input name='facebook' type="text" onChange={this.handleInputChange} value={this.state.facebook} />
+        <br />
+        <label htmlFor="">Discord</label>
+        <br />
+        <input name='discord' type="text" onChange={this.handleInputChange} value={this.state.discord} />
+        <br />
+        <label htmlFor="">Github</label>
+        <br />
+        <input name='github' type="text" onChange={this.handleInputChange} value={this.state.github} />
+        <br />
+        <label htmlFor="">Slack</label>
+        <br />
+        <input name='slack' type="text" onChange={this.handleInputChange} value={this.state.slack} />
         <br />
         <input type="text" />
         <br />
