@@ -5,8 +5,7 @@ import CreateProject from "./CreateProject/CreateProject";
 import { createBrowserHistory as createHistory } from "history";
 import { Router, Route, Switch } from "react-router-dom";
 import PrivateRoute from "./PrivateRoute";
-import PublicRoute from "./PublicRoute";
-import ListOfProjects from './ListOfProjects/ListOfProjects'
+import ListOfProjects from "./ListOfProjects/ListOfProjects";
 
 export const history = createHistory();
 
@@ -17,8 +16,8 @@ const App = () => {
         <div>
           <Switch>
             <Route path="/" exact component={Login} />
-            <Route path='/create' component={CreateProject} />
-            <Route path='/projects' component={ListOfProjects} />
+            <PrivateRoute path="/create" component={CreateProject} />
+            <PrivateRoute path="/projects" component={ListOfProjects} />
             <PrivateRoute path="/user" component={UserProfile} />
           </Switch>
         </div>
