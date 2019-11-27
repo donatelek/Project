@@ -6,7 +6,7 @@ import { AppState } from "../store/index.d";
 interface PrivateProps {
   isAuthenticated?: {};
   component?: any;
-  path?: any;
+  path?: string;
 }
 
 export const PrivateRoute: React.StatelessComponent<PrivateProps> = ({
