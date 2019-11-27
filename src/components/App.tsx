@@ -14,7 +14,7 @@ const App = () => {
       <Router history={history}>
         <div>
           <Switch>
-            <PublicRoute path="/" exact component={Login} />
+            <Route path="/" exact component={Login} />
             <PrivateRoute path="/user" component={UserProfile} />
           </Switch>
         </div>
