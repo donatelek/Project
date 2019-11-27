@@ -7,6 +7,7 @@ interface PublicProps {
   isAuthenticated?: {};
   component?: any;
   path?: string;
+  exact?: boolean;
 }
 
 export const PublicRoute: React.StatelessComponent<PublicProps> = ({
