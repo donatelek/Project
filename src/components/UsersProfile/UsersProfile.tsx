@@ -74,7 +74,7 @@ class UsersProfile extends Component<UsersProfileState> {
       discord,
       github,
       slack,
-      uid: this.props.uid.uid
+      uid: this.props.uid
     });
   };
   render() {
