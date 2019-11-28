@@ -80,7 +80,7 @@ class UsersProfile extends Component<UsersProfileState> {
   render() {
     return (
       <>
-        {console.log("tutaj", this.props.uid.uid)}
+        {console.log("tutaj", this.props.uid)}
         <button onClick={this.startLogout} className="ui button">
           Logout
         </button>
@@ -215,9 +215,9 @@ interface StateFromProps {
   };
 }
 
-const mapStateToProps = (state: StateFromProps) => {
+const mapStateToProps = ({ authReducer }: StateFromProps) => {
   return {
-    uid: state.authReducer.uid
+    uid: authReducer.uid
   };
 };
 
