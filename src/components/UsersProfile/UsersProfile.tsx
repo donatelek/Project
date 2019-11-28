@@ -1,15 +1,35 @@
 import React, { Component } from "react";
 import { auth } from "../../firebase/firebase";
+import { db } from '../../firebase/firebase';
+import { AppState } from "../../store/index.d";
+import { connect } from "react-redux";
 
 interface UsersProfileState {
   facebook: string;
   discord: string;
   github: string;
   slack: string;
+  avatar: string;
+  nick: string;
+  country: string;
+  about: string;
+  // to change on array
+  programmingLang: string;
+  willSpendOnProg: string;
+  spendOnProg: string;
+  birthDate: string;
 }
 
 class UsersProfile extends Component<UsersProfileState> {
   state = {
+    avatar: '',
+    nick: '',
+    country: '',
+    about: '',
+    programmingLang: '',
+    willSpendOnProg: '',
+    spendOnProg: '',
+    birthDate: '',
     facebook: '',
     discord: '',
     github: '',
@@ -25,6 +45,12 @@ class UsersProfile extends Component<UsersProfileState> {
       [name]: value
     });
   }
+  onSubmit = () => {
+    const { avatar, nick, country, about, programmingLang, willSpendOnProg, spendOnProg, birthDate, facebook, discord, github, slack } = this.state;
+    db.collection('users').add({
+      avatar, nick, country, about, programmingLang, willSpendOnProg, spendOnProg, birthDate, facebook, discord, github, slack
+    })
+  }
   render() {
     return (
       <>
@@ -33,47 +59,43 @@ class UsersProfile extends Component<UsersProfileState> {
         </button>
         <label htmlFor="">Your avatar (picture on click)</label>
         <br />
-        <input type="text" placeholder="Update avatar" />
+        <input name='avatar' onChange={this.handleInputChange} type="text" placeholder="Update avatar" value={this.state.avatar} />
         <br />
         <label htmlFor="">Your nickname (input)</label>
         <br />
-        <input type="text" />
+        <input name='nick' onChange={this.handleInputChange} type="text" value={this.state.nick} />
         <br />
         <label htmlFor="">Where are you from? (input)</label>
         <br />
-        <input type="text" />
+        <input name='country' onChange={this.handleInputChange} type="text" value={this.state.country} />
         <br />
         <label htmlFor="">
           What programming languages are you using? (select)
         </label>
         <br />
-        <input type="text" />
+        <input name='programmingLang' onChange={this.handleInputChange} type="text" value={this.state.programmingLang} />
         <br />
         <label htmlFor="">Tell us a few words about yourself. (input)</label>
         <br />
-        <input type="text" />
+        <input name='about' onChange={this.handleInputChange} type="text" value={this.state.about} />
         <br />
         <label htmlFor="">
           How much time will you spend on programming every week? (to choose -
           less than 5h - 5-10 - 11-15 - 16-25 - 26+ ){" "}
         </label>
         <br />
-        <input type="text" />
+        <input name='willSpendOnProg' onChange={this.handleInputChange} type="text" value={this.state.willSpendOnProg} />
         <br />
         <label htmlFor="">
           How long are you programming? (to choose - 1-3months - 4-6 - 7 - 11 -
           12+ )
         </label>
         <br />
-        <input type="text" />
+        <input name='spendOnProg' onChange={this.handleInputChange} type="text" value={this.state.spendOnProg} />
         <br />
         <label htmlFor="">How old are you? (input or your birth date) </label>
         <br />
-        <input type="text" />
-        <br />
-        <label htmlFor="">Link to your github (If you have) (input)</label>
-        <br />
-        <input type="text" />
+        <input name='birthDate' onChange={this.handleInputChange} type="text" value={this.state.birthDate} />
         <br />
         <h1>Contact</h1>
         <br />
@@ -93,12 +115,16 @@ class UsersProfile extends Component<UsersProfileState> {
         <br />
         <input name='slack' type="text" onChange={this.handleInputChange} value={this.state.slack} />
         <br />
-        <input type="text" />
-        <br />
-        <button>Save</button>
+        <button onClick={this.onSubmit} >Save</button>
       </>
     );
   }
 }
 
-export default UsersProfile;
+const mapStateToProps = (state: AppState) => {
+  return {
+    uid: state.authReducer.uid
+  };
+};
+
+export default connect<AppState>(mapStateToProps, null)(UsersProfile);
