@@ -209,9 +209,15 @@ class UsersProfile extends Component<UsersProfileState> {
   }
 }
 
-const mapStateToProps = ({ authReducer }: AppState) => {
+interface StateFromProps {
+  authReducer: {
+    uid: {};
+  };
+}
+
+const mapStateToProps = (state: StateFromProps) => {
   return {
-    uid: authReducer
+    uid: state.authReducer.uid
   };
 };
 
