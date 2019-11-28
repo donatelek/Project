@@ -14,7 +14,7 @@ interface CreateProjectState {
 class CreateProject extends Component<CreateProjectState> {
     state = {
         projectName: '',
-        programmingLang: '',
+        programmingLang: 'Javascript',
         description: '',
         shortDescription: '',
         mainGoals: '',
